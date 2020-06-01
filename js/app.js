@@ -20,7 +20,7 @@ function Mall(name) {
     Mall.all.push(this);                 // every time the object created will be pushed to Mall array
 };
 Mall.all = [];       // this array will containes all object created by Mall constructor, so I can save the properties to access the data any time.
-
+var clicksData=[];var viewsData=[];
 
 // the following loop creat objects for all imgPaths array, and I can go back to this objects br {Mall.all} array.
 for (var i = 0; i < imgPaths.length; i++) {
@@ -66,17 +66,6 @@ result.append(ulEl);
 
 
 // this function dispaly the result of votes in unorder list, for every value in {imgPaths} array
-function resultVote() {
-    for (var i = 0; i < imgPaths.length; i++) {
-
-        var liEl = document.createElement('li');
-        ulEl.append(liEl);
-        liEl.textContent = `${Mall.all[i].name} had ${Mall.all[i].clicks} votes and was shown ${Mall.all[i].views} times`;
-        
-    };
-
-
-};
 
 
 // creating event on click accureing on imgs for 25 rounds
@@ -87,7 +76,7 @@ container.addEventListener('click', function (event) {
     if (countClicks < 25) {
         if (event.target.id !== 'container') {           //check if the click was on imgs and not outside img elements
             countClicks++;
-
+            
             if (event.target.id === 'firstImg') {        //in the next three if statment checks which img clicked on and incremint the (clicks) object properity
                 first.clicks++;                          // the objects are allready chosen by up (render()) function
             };
@@ -100,18 +89,151 @@ container.addEventListener('click', function (event) {
 
             render();
 
-
+            
             // console.log(countFirst,countSecond,countFinal);
         }
 
     } else if (countClicks === 25) {                     //After 25 rounds show the result of the votes by calling resultVote() function and increment the round counter to disable the event
-
+        
         countClicks++;
         resultVote();
     };
     console.log(countClicks);
-
+    
 });
 render(); //this call once just at rendering the page
 
+// ____________________________
+function resultVote() {
+    for (var i = 0; i < imgPaths.length; i++) {
 
+        var liEl = document.createElement('li');
+        ulEl.append(liEl);
+        liEl.textContent = `${Mall.all[i].name} had ${Mall.all[i].clicks} votes and was shown ${Mall.all[i].views} times`;
+        clicksData.push(Mall.all[i].clicks);
+        viewsData.push(Mall.all[i].views);
+        console.log(clicksData);
+        
+    };
+
+
+
+    
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: imgPaths,
+        datasets: [{
+            label: '# of Votes',
+            data: clicksData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        },{
+            label: '# of Votes',
+            data: viewsData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+};
