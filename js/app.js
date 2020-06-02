@@ -3,7 +3,6 @@
 var container = document.getElementById('container');
 var firstImg = document.getElementById('firstImg');
 var secondImg = document.getElementById('secondImg');
-var thiredImg = document.getElementById('thiredImg');
 var finalImg = document.getElementById('finalImg');
 var result = document.getElementById('result');
 
@@ -22,32 +21,49 @@ function Mall(name) {
 Mall.all = [];       // this array will containes all object created by Mall constructor, so I can save the properties to access the data any time.
 var clicksData = []; var viewsData = [];
 
+// ---------------------------------------------->products objects<-----------------------
+
 // the following loop creat objects for all imgPaths array, and I can go back to this objects br {Mall.all} array.
 for (var i = 0; i < imgPaths.length; i++) {
     new Mall(imgPaths[i]);
 };
+
+getProduct();               //>> this call once, just at rendering the page or reload it
+
+// ----------------------------------get and set ------------------------
+function setProduct() {
+    var products = JSON.stringify(Mall.all);
+    localStorage.setItem('MallProducts', products);
+};
+
+function getProduct() {
+    var productStored = localStorage.getItem('MallProducts');
+    if (productStored) {
+        Mall.all = JSON.parse(productStored);
+        
+        // resultVote();
+    };
+    render();
+};
+
+
+// ----------->Helper function/randome number<--------------------------------------------------------
 
 // the following function creat randome number between max and min
 function randomImg(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// rendering 3 unique imgs beside each other 
+//-----------> rendering 3 unique imgs beside each other <----------------------------------------------
 
 var first, second, final;                      //these value will save 3 objects which contain 3 img to show
-var productData = [];                             //to save the products to next round    
 function render() {
-
-
-    console.log('start:' + productData);
-
+    
     do {
         first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
         second = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick another randome object and save it on second variable
         final = Mall.all[randomImg(0, imgPaths.length - 1)];
 
-        if (productData.includes(first)) {
-            first = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
         if (productData.includes(second)) {
             second = Mall.all[randomImg(0, imgPaths.length - 1)];
@@ -55,88 +71,36 @@ function render() {
         if (productData.includes(final)) {
             final = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
-        console.log(productData.includes()+' : include method');
-        
-
-        // for (var i = 0; i < productData.length; i++) {
-        //     while (first === productData[i]) {
-        //         first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
-        //     };
-        // };
-        // for (var i = 0; i < productData.length; i++) {
-        //     while (second === productData[i]) {
-        //         second = Mall.all[randomImg(0, imgPaths.length - 1)];
-        //     };
-        // };
-        // for (var i = 0; i < productData.length; i++) {
-        //     while (final === productData[i]) {
-        //         final = Mall.all[randomImg(0, imgPaths.length - 1)];
-        //     };
-        // };
-
 
         //check if any of the variables are equel, to avoid repeting. if there are go back and change the value
     } while (first === second || first === final || second === final);
 
-    //while fir==pro(i)
-    //first =
-
-
-    //pd.clear()
-    //productData.push()
-
-    // do {
-    //     // do {
-    //         second = Mall.all[randomImg(0, imgPaths.length - 1)];                   
-
-    //     // } while (second === productData[0] || second === productData[1] || second === productData[2]);
-
-    // } while ( second === productData[0] || second === productData[1] || second === productData[2])                          
-
-    // do {
-
-    //     // do {
-    //         final = Mall.all[randomImg(0, imgPaths.length - 1)];                      //pick another randome object and save it on final variable
-
-    //     // } while (final === productData[0] || final === productData[1] || final === productData[2]);
-    // } while (first === final || second === final);                                //check if the second & first variable equel the final variable, to avoid repeting.go back and chang the value
-
-
-
-
-    productData = [];
+    productData = [];                      //To save and compar the products in the next round
+    
     firstImg.src = first.imgPath;          //get the image path from saved object(first) using {imgPath} proparety, and assign it to source HTML attribut(src) which is in html element has {firstImg} id.
     first.views++;                         //incremnt (views) proparity value of the (first)object
     productData.push(first);               //send the value to array.
+
     secondImg.src = second.imgPath;        //and doing as first object for second and final objects
     second.views++;
     productData.push(second);
+
     finalImg.src = final.imgPath;
     final.views++;
     productData.push(final);
-    console.log('final:' + productData);
-
 };
 
-
-var ulEl = document.createElement('ul');
-result.append(ulEl);
-
-
-// this function dispaly the result of votes in unorder list, for every value in {imgPaths} array
-
-
-// creating event on click accureing on imgs for 25 rounds
+// --------------------------------->creating event on click accureing on imgs for 25 rounds<-----------------------------
 
 var countClicks = 0;
 
 container.addEventListener('click', function (event) {
     if (countClicks < 25) {
-        if (event.target.id !== 'container') {           //check if the click was on imgs and not outside img elements
+        if (event.target.id !== 'container') {           //>> check if the click was on imgs and not outside img elements
             countClicks++;
 
-            if (event.target.id === 'firstImg') {        //in the next three if statment checks which img clicked on and incremint the (clicks) object properity
-                first.clicks++;                          // the objects are allready chosen by up (render()) function
+            if (event.target.id === 'firstImg') {        //>> in the next three if statment checks which img clicked on and incremint the (clicks) object properity
+                first.clicks++;                          //>> the objects are allready chosen by up (render()) function
             };
             if (event.target.id === 'secondImg') {
                 second.clicks++;
@@ -146,22 +110,23 @@ container.addEventListener('click', function (event) {
             };
 
             render();
+        };
 
-
-            // console.log(countFirst,countSecond,countFinal);
-        }
-
-    } else if (countClicks === 25) {                     //After 25 rounds show the result of the votes by calling resultVote() function and increment the round counter to disable the event
+    } else if (countClicks === 25) {                     //>> After 25 rounds show the result of the votes by calling resultVote() function and increment the round counter to disable the event
 
         countClicks++;
         resultVote();
     };
-    console.log(countClicks);
+
+    setProduct();
 
 });
-render(); //this call once just at rendering the page
+ 
+// -----------> dispaly the result of votes in unorder list, for every value in {imgPaths} array<-------------------------
 
-// ____________________________
+var ulEl = document.createElement('ul');
+result.append(ulEl);
+
 function resultVote() {
     for (var i = 0; i < imgPaths.length; i++) {
 
@@ -173,9 +138,7 @@ function resultVote() {
         console.log(clicksData);
 
     };
-
-
-
+    // ------------------> Add chart <------------------
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
