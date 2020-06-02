@@ -63,10 +63,7 @@ function render() {
         first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
         second = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick another randome object and save it on second variable
         final = Mall.all[randomImg(0, imgPaths.length - 1)];
-        
-        var productData = [];                             //to save the products to next round 
-        if (productData.includes(first)) {
-            first = Mall.all[randomImg(0, imgPaths.length - 1)];
+
         };
         if (productData.includes(second)) {
             second = Mall.all[randomImg(0, imgPaths.length - 1)];
@@ -74,27 +71,7 @@ function render() {
         if (productData.includes(final)) {
             final = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
-       
-        /*   another solution to prevent repeat products
 
-        for (var i = 0; i < productData.length; i++) {
-            while (first === productData[i]) {
-                first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
-            };
-        };
-        for (var i = 0; i < productData.length; i++) {
-            while (second === productData[i]) {
-                second = Mall.all[randomImg(0, imgPaths.length - 1)];
-            };
-        };
-        for (var i = 0; i < productData.length; i++) {
-            while (final === productData[i]) {
-                final = Mall.all[randomImg(0, imgPaths.length - 1)];
-            };
-        };
-              */
-        
-        
         //check if any of the variables are equel, to avoid repeting. if there are go back and change the value
     } while (first === second || first === final || second === final);
 
