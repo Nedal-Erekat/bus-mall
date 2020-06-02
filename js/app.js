@@ -63,7 +63,10 @@ function render() {
         first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
         second = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick another randome object and save it on second variable
         final = Mall.all[randomImg(0, imgPaths.length - 1)];
-
+        
+        var productData = [];                      //To save and compar the products in the next round
+        if (productData.includes(first)) {
+            first = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
         if (productData.includes(second)) {
             second = Mall.all[randomImg(0, imgPaths.length - 1)];
@@ -75,7 +78,6 @@ function render() {
         //check if any of the variables are equel, to avoid repeting. if there are go back and change the value
     } while (first === second || first === final || second === final);
 
-    productData = [];                      //To save and compar the products in the next round
     
     firstImg.src = first.imgPath;          //get the image path from saved object(first) using {imgPath} proparety, and assign it to source HTML attribut(src) which is in html element has {firstImg} id.
     first.views++;                         //incremnt (views) proparity value of the (first)object
