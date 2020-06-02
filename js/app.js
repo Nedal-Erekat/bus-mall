@@ -9,7 +9,7 @@ var result = document.getElementById('result');
 
 var imgPaths = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg'
     , 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg'
-, 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+    , 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
 
 //Creating a constructor for buss mall
 function Mall(name) {
@@ -46,22 +46,33 @@ function render() {
         second = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick another randome object and save it on second variable
         final = Mall.all[randomImg(0, imgPaths.length - 1)];
 
+        if (productData.includes(first)) {
+            first = Mall.all[randomImg(0, imgPaths.length - 1)];
+        };
+        if (productData.includes(second)) {
+            second = Mall.all[randomImg(0, imgPaths.length - 1)];
+        };
+        if (productData.includes(final)) {
+            final = Mall.all[randomImg(0, imgPaths.length - 1)];
+        };
+        console.log(productData.includes()+' : include method');
+        
 
-        for (var i = 0; i < productData.length; i++) {
-            while (first === productData[i]) {
-                first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
-            };
-        };
-        for (var i = 0; i < productData.length; i++) {
-            while (second === productData[i]) {
-                second = Mall.all[randomImg(0, imgPaths.length - 1)];
-            };
-        };
-        for (var i = 0; i < productData.length; i++) {
-            while (final === productData[i]) {
-                final = Mall.all[randomImg(0, imgPaths.length - 1)];
-            };
-        };
+        // for (var i = 0; i < productData.length; i++) {
+        //     while (first === productData[i]) {
+        //         first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
+        //     };
+        // };
+        // for (var i = 0; i < productData.length; i++) {
+        //     while (second === productData[i]) {
+        //         second = Mall.all[randomImg(0, imgPaths.length - 1)];
+        //     };
+        // };
+        // for (var i = 0; i < productData.length; i++) {
+        //     while (final === productData[i]) {
+        //         final = Mall.all[randomImg(0, imgPaths.length - 1)];
+        //     };
+        // };
 
 
         //check if any of the variables are equel, to avoid repeting. if there are go back and change the value
