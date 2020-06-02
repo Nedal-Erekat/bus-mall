@@ -56,40 +56,58 @@ function randomImg(min, max) {
 
 //-----------> rendering 3 unique imgs beside each other <----------------------------------------------
 
-var first, second, final;                      //these value will save 3 objects which contain 3 img to show
+var firstProduct, secondProduct, finalProduct;                      //these value will save 3 objects which contain 3 img to show
 function render() {
     
     do {
-        first = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on first variable
-        second = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick another randome object and save it on second variable
-        final = Mall.all[randomImg(0, imgPaths.length - 1)];
+        firstProduct = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on firstProduct variable
+        secondProduct = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick another randome object and save it on secondProduct variable
+        finalProduct = Mall.all[randomImg(0, imgPaths.length - 1)];
         
         var productData = [];                      //To save and compar the products in the next round
-        if (productData.includes(first)) {
-            first = Mall.all[randomImg(0, imgPaths.length - 1)];
+        if (productData.includes(firstProduct)) {
+            firstProduct = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
-        if (productData.includes(second)) {
-            second = Mall.all[randomImg(0, imgPaths.length - 1)];
+        if (productData.includes(secondProduct)) {
+            secondProduct = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
-        if (productData.includes(final)) {
-            final = Mall.all[randomImg(0, imgPaths.length - 1)];
+        if (productData.includes(finalProduct)) {
+            finalProduct = Mall.all[randomImg(0, imgPaths.length - 1)];
         };
+        /*   another solution to prevent repeat products
+
+        for (var i = 0; i < productData.length; i++) {
+            while (firstProduct === productData[i]) {
+                firstProduct = Mall.all[randomImg(0, imgPaths.length - 1)];                 //pick random object and save it on firstProduct variable
+            };
+        };
+        for (var i = 0; i < productData.length; i++) {
+            while (secondProduct === productData[i]) {
+                secondProduct = Mall.all[randomImg(0, imgPaths.length - 1)];
+            };
+        };
+        for (var i = 0; i < productData.length; i++) {
+            while (finalProduct === productData[i]) {
+                finalProduct = Mall.all[randomImg(0, imgPaths.length - 1)];
+            };
+        };
+              */
 
         //check if any of the variables are equel, to avoid repeting. if there are go back and change the value
-    } while (first === second || first === final || second === final);
+    } while (firstProduct === secondProduct || firstProduct === finalProduct || secondProduct === finalProduct);
 
     
-    firstImg.src = first.imgPath;          //get the image path from saved object(first) using {imgPath} proparety, and assign it to source HTML attribut(src) which is in html element has {firstImg} id.
-    first.views++;                         //incremnt (views) proparity value of the (first)object
-    productData.push(first);               //send the value to array.
+    firstImg.src = firstProduct.imgPath;          //get the image path from saved object(firstProduct) using {imgPath} proparety, and assign it to source HTML attribut(src) which is in html element has {firstImg} id.
+    firstProduct.views++;                         //incremnt (views) proparity value of the (firstProduct)object
+    productData.push(firstProduct);               //send the value to array.
 
-    secondImg.src = second.imgPath;        //and doing as first object for second and final objects
-    second.views++;
-    productData.push(second);
+    secondImg.src = secondProduct.imgPath;        //and doing as firstProduct object for secondProduct and finalProduct objects
+    secondProduct.views++;
+    productData.push(secondProduct);
 
-    finalImg.src = final.imgPath;
-    final.views++;
-    productData.push(final);
+    finalImg.src = finalProduct.imgPath;
+    finalProduct.views++;
+    productData.push(finalProduct);
 };
 
 // --------------------------------->creating event on click accureing on imgs for 25 rounds<-----------------------------
@@ -102,13 +120,13 @@ container.addEventListener('click', function (event) {
             countClicks++;
 
             if (event.target.id === 'firstImg') {        //>> in the next three if statment checks which img clicked on and incremint the (clicks) object properity
-                first.clicks++;                          //>> the objects are allready chosen by up (render()) function
+                firstProduct.clicks++;                          //>> the objects are allready chosen by up (render()) function
             };
             if (event.target.id === 'secondImg') {
-                second.clicks++;
+                secondProduct.clicks++;
             };
             if (event.target.id === 'finalImg') {
-                final.clicks++;
+                finalProduct.clicks++;
             };
 
             render();
