@@ -165,9 +165,9 @@ function resultVote() {
         // ulEl.removeChild(ulEl);
     // //    ulEl.removeChild(liEl);
     // };
+    ulEl = document.createElement('ul');
+    result.append(ulEl);
     for (var i = 0; i < imgPaths.length; i++) {
-         ulEl = document.createElement('ul');
-         result.append(ulEl);
          liEl = document.createElement('li');
         ulEl.append(liEl);
         liEl.textContent = `${Mall.all[i].name} had ${Mall.all[i].clicks} votes and was shown ${Mall.all[i].views} times`;

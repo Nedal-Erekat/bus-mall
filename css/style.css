@@ -1,7 +1,79 @@
-#container img{
-    width: 25%;
-    margin: auto;
-    padding: 30px;
-    border:solid black 2px;
+header{
+    background-color: rgb(243, 163, 43);
+    display: flex;
+    color: blanchedalmond;
+    width: 100%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    box-shadow: 0 0 10px black;
+}
+header img{
+    width: 10%;
+    margin: 10px 20px 10px 0;
+
     
+}
+header h1{
+    font-size: xx-large;
+    display: inline;
+    margin: auto auto auto 50px;
+    text-shadow:0 0 10px black;
+}
+body{
+    background-color: rgb(170, 169, 169);
+    font-family: fantasy;
+}
+h2 {
+    margin: 40px auto;
+    width: max-content;
+    text-shadow: 0 0 5px;
+    font-size: xx-large;
+    font-weight: lighter;
+}
+#container{
+    /* border: solid black 2px; */
+    padding: 30px;
+    width: 70%;
+    height: 500px;
+    margin: 20px auto;
+    display: flex;
+    background-color: rgb(247, 245, 245);
+    box-shadow: 0 0 10px black;
+
+}
+#container img{
+flex: 33.33%;
+    width: 26%;
+    margin: auto 10px;
+    padding: 10px;
+    /* border:solid rgb(175, 22, 22) 2px; */
+    box-shadow: 0 0 10px black;
+
+    
+}
+#result ul{
+    border: solid black 2px;
+    width: max-content;
+    padding: 20px;
+    margin: 10px auto;
+    background-image: url(https://img.freepik.com/free-photo/design-space-paper-textured-background_53876-42312.jpg?size=626&ext=jpg);
+    box-shadow: 0 0 10px black;
+    font-family: cursive;
+
+
+}
+#result ul li{
+    margin: 10px;
+}
+#chart{
+    width: 80%;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: rgb(247, 245, 245);
+    box-shadow: 0 0 10px black;
+
+}
+footer{
+    background-color: black;
+    width: 100%;
+    height: 100px;
 }
