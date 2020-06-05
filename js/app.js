@@ -5,6 +5,9 @@ var firstImg = document.getElementById('firstImg');
 var secondImg = document.getElementById('secondImg');
 var finalImg = document.getElementById('finalImg');
 var result = document.getElementById('result');
+var ulEl ;
+
+var liEl ;
 
 var imgPaths = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg'
     , 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg'
@@ -28,7 +31,8 @@ for (var i = 0; i < imgPaths.length; i++) {
     new Mall(imgPaths[i]);
 };
 
-getProduct();               //>> this call once, just at rendering the page or reload it
+
+
 
 // ----------------------------------get and set ------------------------
 function setProduct() {
@@ -41,7 +45,7 @@ function getProduct() {
     if (productStored) {
         Mall.all = JSON.parse(productStored);
         
-        // resultVote();
+        resultVote();
     };
     render();
 };
@@ -128,35 +132,49 @@ container.addEventListener('click', function (event) {
             if (event.target.id === 'finalImg') {
                 finalProduct.clicks++;
             };
-
+            
             render();
+            // resultVote();
         };
-
+        
     } else if (countClicks === 25) {                     //>> After 25 rounds show the result of the votes by calling resultVote() function and increment the round counter to disable the event
-
+        // clearChart();
         countClicks++;
         resultVote();
     };
-
-    setProduct();
-
+    
+    
 });
- 
+function clearChart() {
+    localStorage.clear();
+    result.removeChild(ulEl);
+};
+
 // -----------> dispaly the result of votes in unorder list, for every value in {imgPaths} array<-------------------------
 
-var ulEl = document.createElement('ul');
-result.append(ulEl);
 
 function resultVote() {
+    setProduct();
+    //if there is a list clear it ..ulEl.removeChild(li)
+    while (result.hasChildNodes()) {
+        console.log(`here is before the clear${ulEl}`);
+        result.removeChild(result.firstChild);
+        console.log(`here is the cleared${ulEl}`);
+    }
+    // if(ulEl){
+        // ulEl.removeChild(ulEl);
+    // //    ulEl.removeChild(liEl);
+    // };
     for (var i = 0; i < imgPaths.length; i++) {
-
-        var liEl = document.createElement('li');
+         ulEl = document.createElement('ul');
+         result.append(ulEl);
+         liEl = document.createElement('li');
         ulEl.append(liEl);
         liEl.textContent = `${Mall.all[i].name} had ${Mall.all[i].clicks} votes and was shown ${Mall.all[i].views} times`;
         clicksData.push(Mall.all[i].clicks);
         viewsData.push(Mall.all[i].views);
-        console.log(clicksData);
-
+        // console.log(clicksData);
+        
     };
     // ------------------> Add chart <------------------
 
@@ -278,3 +296,5 @@ function resultVote() {
         }
     });
 };
+                
+getProduct();               //>> this call once, just at rendering the page or reload it
